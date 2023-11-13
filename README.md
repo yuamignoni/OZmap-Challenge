@@ -39,9 +39,9 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
 
 ## 🌟 **Diferenciais**
 
-- Interface básica de usuário.
 - Documentação completa da API.
-- Internacionalização.
+- Interface para visualização de logs.
+- Exportação de relatórios (.csv).
 - Cobertura de código.
 
 ## ⚖ **Critérios de Avaliação**
