@@ -32,7 +32,6 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
 
 ### Autenticação
 - Autenticação não é necessária.
-- Contudo, aceite requests identificando o solicitante.
 
 ### Testes
 - Unitários e de integração.
