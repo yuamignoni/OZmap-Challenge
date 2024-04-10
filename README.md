@@ -60,9 +60,8 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
 
 1. Faça um fork deste repositório.
 2. Crie uma branch com o padrão `seu-nome-sobrenome`.
-3. Ao finalizar, faça um pull request para a branch `main` deste repositório.
-4. Envie um email `rh@ozmap.com.br` informando que o teste foi concluído.
-5. Aguarde nosso feedback.
+3. Envie um email `rh@ozmap.com.br` informando que o teste foi concluído.
+4. Aguarde nosso feedback.
 
 ---
 
