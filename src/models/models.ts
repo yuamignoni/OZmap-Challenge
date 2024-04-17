@@ -73,6 +73,9 @@ export class Region extends Base {
 
   @Prop({ ref: () => User, required: true, type: () => String })
   user: Ref<User>;
+
+  @Prop({ required: true, type: () => [Number], index: "2dsphere" })
+  coordinates: [number, number];
 }
 
 export interface IUser extends mongoose.Document {

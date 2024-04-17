@@ -9,9 +9,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+      - "9229:9229"
     command: npm run dev
-    volumes:
-      - ./:/usr/src/app
     env_file:
       - .env
     depends_on:
