@@ -19,8 +19,7 @@ export class RegionController {
       );
       res.status(201).json(region);
     } catch (error) {
-      console.error("Error creating region:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Error creating region" });
     }
   }
 
@@ -34,8 +33,7 @@ export class RegionController {
         res.status(404).json({ error: "Region not found" });
       }
     } catch (error) {
-      console.error("Error fetching region by ID:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   }
 
@@ -55,8 +53,7 @@ export class RegionController {
         res.status(404).json({ error: "Region not found" });
       }
     } catch (error) {
-      console.error("Error updating region:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   }
 
@@ -70,8 +67,7 @@ export class RegionController {
         res.status(404).json({ error: "Region not found" });
       }
     } catch (error) {
-      console.error("Error deleting region:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   }
 
@@ -85,8 +81,7 @@ export class RegionController {
       );
       res.status(200).json(regions);
     } catch (error) {
-      console.error("Error fetching regions containing point:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   }
 
@@ -103,7 +98,7 @@ export class RegionController {
       res.status(200).json(regions);
     } catch (error) {
       console.error("Error fetching regions within distance:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   }
 
@@ -113,7 +108,7 @@ export class RegionController {
       res.status(200).json(regions);
     } catch (error) {
       console.error("Error fetching regions:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   }
 }

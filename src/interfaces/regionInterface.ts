@@ -2,8 +2,8 @@ import { Document, Types } from "mongoose";
 import { IUser } from "../models/models";
 
 export interface IRegion extends Document {
-  _id: string;
+  _id?: Types.ObjectId | string;
   name: string;
-  owner?: Types.ObjectId | IUser;
+  user?: Types.ObjectId | IUser | string;
   coordinates: [number, number];
 }

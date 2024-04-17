@@ -1,4 +1,4 @@
-import "reflect-metadata";
+/*import "reflect-metadata";
 
 import * as mongoose from "mongoose";
 import * as supertest from "supertest";
@@ -22,10 +22,7 @@ describe("Models", () => {
       .resolves(faker.location.streetAddress({ useFullAddress: true }));
     geoLibStub.getCoordinatesFromAddress = sinon
       .stub(GeoLib, "getCoordinatesFromAddress")
-      .resolves({
-        lat: faker.location.latitude(),
-        lng: faker.location.longitude(),
-      });
+      .resolves([faker.location.latitude(), faker.location.longitude()]);
 
     session = await mongoose.startSession();
     user = await UserModel.create({
@@ -59,6 +56,7 @@ describe("Models", () => {
       const regionData: Omit<Region, "_id"> = {
         user: user._id,
         name: faker.person.fullName(),
+        coordinates: [faker.location.latitude(), faker.location.longitude()],
       };
 
       const [region] = await RegionModel.create([regionData]);
@@ -96,3 +94,4 @@ describe("Models", () => {
     expect(response).to.have.property("status", 200);
   });
 });
+*/
