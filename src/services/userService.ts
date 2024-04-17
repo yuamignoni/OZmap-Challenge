@@ -1,4 +1,5 @@
-import { UserModel, IUser } from "../models/models";
+import { UserModel } from "../models/models";
+import { IUser } from "../interfaces/userInterface";
 import geolib from "../services/libService";
 
 export interface UserServiceInterface {
