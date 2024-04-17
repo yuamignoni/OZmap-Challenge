@@ -12,10 +12,8 @@ services:
     command: npm run dev
     volumes:
       - ./:/usr/src/app
-    environment:
-      MONGO_URI: mongodb://mongo:27017/ozmapdb
-      GOOGLE_MAPS_API_KEY: AIzaSyCSyGDHPxw7CTg-GwI7A-bOXasQRoV_6u4
-      GOOGLE_MAPS_API_URL: https://maps.googleapis.com/maps/api/geocode/json?
+    env_file:
+      - .env
     depends_on:
       - mongo
 
