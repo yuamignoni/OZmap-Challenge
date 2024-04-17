@@ -10,9 +10,8 @@ export class RegionService {
     coordinates: [number, number],
     userId: Types.ObjectId
   ): Promise<IRegion> {
-    const user = await UserModel.findById(userId).exec();
+    const user = await UserModel.findById(userId);
     coordinates = [coordinates[1], coordinates[0]];
-    console.log(user);
     if (!user) {
       throw new Error("User not found");
     }
@@ -20,7 +19,7 @@ export class RegionService {
   }
 
   async getRegionById(regionId: string): Promise<IRegion | null> {
-    return RegionModel.findById(regionId).exec();
+    return RegionModel.findById(regionId);
   }
 
   async updateRegion(
@@ -34,11 +33,11 @@ export class RegionService {
       regionId,
       { name, coordinates, user: userId },
       { new: true }
-    ).exec();
+    );
   }
 
   async deleteRegion(regionId: string): Promise<boolean> {
-    const result = await RegionModel.findByIdAndDelete(regionId).exec();
+    const result = await RegionModel.findByIdAndDelete(regionId);
     return !!result;
   }
 
@@ -55,7 +54,7 @@ export class RegionService {
           },
         },
       },
-    }).exec();
+    });
   }
 
   async getRegionsWithinDistance(
@@ -80,10 +79,10 @@ export class RegionService {
       query.user = userId;
     }
 
-    return RegionModel.find(query).exec();
+    return RegionModel.find(query);
   }
 
   async getRegions(): Promise<IRegion[]> {
-    return RegionModel.find().exec();
+    return RegionModel.find();
   }
 }

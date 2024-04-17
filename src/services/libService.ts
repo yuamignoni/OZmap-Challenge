@@ -10,7 +10,6 @@ class GeoLib {
     const response = await axios.get(
       `${process.env.GOOGLE_MAPS_API_URL}latlng=${lat},${lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`
     );
-
     if (response.data.status !== "OK") {
       throw new Error("Failed to get address from coordinates");
     }

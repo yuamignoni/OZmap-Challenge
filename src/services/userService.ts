@@ -67,20 +67,20 @@ export class UserService implements UserServiceInterface {
       userData.address = resolvedAddress;
     }
 
-    return UserModel.findByIdAndUpdate(userId, userData, { new: true }).exec();
+    return UserModel.findByIdAndUpdate(userId, userData, { new: true });
   }
 
   async getUserById(userId: string): Promise<IUser | null> {
-    return UserModel.findById(userId).exec();
+    return await UserModel.findOne({ _id: userId });
   }
 
   async deleteUser(userId: string): Promise<boolean> {
-    const result = await UserModel.findByIdAndDelete(userId).exec();
+    const result = await UserModel.findByIdAndDelete(userId);
     return !!result;
   }
 
   async getUsers(): Promise<IUser[]> {
-    return UserModel.find().exec();
+    return UserModel.find();
   }
 
   private validateUserData(userData: Partial<IUser>): void {

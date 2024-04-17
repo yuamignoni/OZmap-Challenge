@@ -74,7 +74,6 @@ export class RegionController {
   async getRegionsContainingPoint(req: Request, res: Response): Promise<void> {
     try {
       const { latitude, longitude } = req.query;
-      console.log(latitude, longitude);
       const regions = await this.regionService.getRegionsContainingPoint(
         parseFloat(latitude as string),
         parseFloat(longitude as string)
@@ -88,7 +87,6 @@ export class RegionController {
   async getRegionsWithinDistance(req: Request, res: Response): Promise<void> {
     try {
       const { latitude, longitude, maxDistance, userId } = req.query;
-      console.log(latitude, longitude, maxDistance, userId);
       const regions = await this.regionService.getRegionsWithinDistance(
         parseFloat(latitude as string),
         parseFloat(longitude as string),
