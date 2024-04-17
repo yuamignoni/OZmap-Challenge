@@ -9,7 +9,7 @@ import {
   Ref,
   modelOptions,
 } from "@typegoose/typegoose";
-import lib from "./lib";
+import lib from "../services/libService";
 
 import ObjectId = mongoose.Types.ObjectId;
 
@@ -24,7 +24,7 @@ class Base extends TimeStamps {
   if (region.isModified("coordinates")) {
     region.address = await lib.getAddressFromCoordinates(region.coordinates);
   } else if (region.isModified("address")) {
-    const { lat, lng } = await lib.getCoordinatesFromAddress(region.address);
+    const [lat, lng] = await lib.getCoordinatesFromAddress(region.address);
 
     region.coordinates = [lng, lat];
   }
@@ -73,6 +73,13 @@ export class Region extends Base {
 
   @Prop({ ref: () => User, required: true, type: () => String })
   user: Ref<User>;
+}
+
+export interface IUser extends mongoose.Document {
+  name: string;
+  email: string;
+  address?: string;
+  coordinates?: [number, number];
 }
 
 export const UserModel = getModelForClass(User);

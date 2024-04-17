@@ -7,8 +7,8 @@ import { faker } from "@faker-js/faker";
 import { expect, assert } from "chai";
 
 import "./database";
-import { Region, RegionModel, UserModel } from "./models";
-import GeoLib from "./lib";
+import { Region, RegionModel, UserModel } from "./models/models";
+import GeoLib from "./services/libService";
 import server from "./server";
 
 describe("Models", () => {
