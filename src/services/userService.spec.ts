@@ -74,7 +74,7 @@ describe("User Service", () => {
       };
 
       await expect(userService.createUser(userData)).to.be.rejectedWith(
-        "You must provide either address or coordinates, but not both or none."
+        "You can provide either address or coordinates, but not both."
       );
     });
   });
