@@ -1,3 +1,24 @@
+# Iniciando o Projeto
+
+```
+git clone https://github.com/yuamignoni/OZmap-Challenge
+git checkout yuara-mignoni
+npm i
+docker-compose up --build
+```
+
+## Variáveis
+
+```
+      MONGODB_URI: mongodb://mongo:27017/ozmapdb
+      GOOGLE_MAPS_API_KEY: SUA_CHAVE_AQUI
+      GOOGLE_MAPS_API_URL: https://maps.googleapis.com/maps/api/geocode/json?
+      PORT: 3000
+
+```
+
+Caso não possua uma chave para testar o projeto, favor entrar em contato.
+
 # OZmap Challenge: Construindo a Geolocalização do Futuro
 
 Olá desenvolvedor(a)! Bem-vindo(a) ao Desafio Técnico do OZmap. Este é um projeto que simula um cenário real de nossa empresa, onde você irá desempenhar um papel crucial ao desenvolver uma API RESTful robusta para gerenciar usuários e localizações. Estamos muito animados para ver sua abordagem e solução!
