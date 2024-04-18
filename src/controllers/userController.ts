@@ -15,6 +15,7 @@ export class UserController {
       const user = await this.userService.createUser(userData);
       res.status(201).json(user);
     } catch (error) {
+      console.log(error, error.message);
       res.status(400).json({ error: error.message });
     }
   }
@@ -48,11 +49,12 @@ export class UserController {
       const userData: Partial<IUser> = req.body;
       const user = await this.userService.updateUser(userId, userData);
       if (user) {
-        res.status(200).json(user);
+        res.status(201).json(user);
       } else {
         res.status(404).json({ error: "User not found" });
       }
     } catch (error) {
+      console.log(error, error.message);
       res.status(400).json({ error: error.message });
     }
   }

@@ -48,7 +48,7 @@ export class RegionController {
         userId
       );
       if (region) {
-        res.status(200).json(region);
+        res.status(201).json(region);
       } else {
         res.status(404).json({ error: "Region not found" });
       }
