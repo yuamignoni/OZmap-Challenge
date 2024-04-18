@@ -7,7 +7,7 @@ npm i
 docker-compose up --build
 ```
 
-## Variáveis
+### Variáveis
 
 ```
 MONGODB_URI: mongodb://mongo:27017/ozmapdb
@@ -17,6 +17,12 @@ PORT: 3000
 ```
 
 Caso não possua uma chave para testar o projeto, favor entrar em contato.
+
+### Documentação
+Para acessar a documentação basta acessar a url:
+```
+localhost:3000/docs
+```
 
 # OZmap Challenge: Construindo a Geolocalização do Futuro
 
