@@ -124,7 +124,7 @@ describe("User Controller", () => {
   });
 
   describe("updateUser", () => {
-    it("should update user and return a 200 status code", async () => {
+    it("should update an user", async () => {
       const userId = faker.database.mongodbObjectId();
       const userData = {
         name: faker.person.fullName(),
@@ -141,7 +141,7 @@ describe("User Controller", () => {
       await userController.updateUser(req as Request, res as Response);
 
       expect(updateUserStub.calledOnceWith(userId, userData)).to.be.true;
-      expect(res.status).to.be.calledWith(200);
+      expect(res.status).to.be.calledWith(201);
       expect(res.json).to.be.calledWith({ _id: userId, ...userData });
       updateUserStub.restore();
     });

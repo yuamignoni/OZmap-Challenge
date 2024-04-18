@@ -167,7 +167,7 @@ describe("Region Controller", () => {
       await regionController.updateRegion(req as Request, res as Response);
 
       expect(updateRegionStub.calledOnceWith(regionId)).to.be.true;
-      expect(res.status).to.be.calledWith(200);
+      expect(res.status).to.be.calledWith(201);
       expect(res.json).to.be.calledOnce;
       expect(res.json).to.be.calledWith(regionData);
 
