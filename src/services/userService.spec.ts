@@ -66,6 +66,7 @@ describe("User Service", () => {
 
   describe("updateUser", () => {
     it("should throw an error if both address and coordinates are provided", async () => {
+      const userId = faker.database.mongodbObjectId();
       const userData: Partial<IUser> = {
         name: faker.person.fullName(),
         email: faker.internet.email(),
@@ -73,7 +74,7 @@ describe("User Service", () => {
         coordinates: [faker.location.latitude(), faker.location.longitude()],
       };
 
-      await expect(userService.createUser(userData)).to.be.rejectedWith(
+      await expect(userService.updateUser(userId, userData)).to.be.rejectedWith(
         "You can provide either address or coordinates, but not both."
       );
     });
