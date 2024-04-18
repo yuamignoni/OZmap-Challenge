@@ -1,0 +1,727 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DevOZ - Tech test",
+    "description": "API de gerenciamento de usuários e localizações.",
+    "version": "0.0.1",
+    "contact": {
+      "email": "yuamignoni@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get Users",
+        "description": "Retorna uma lista de usuários",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create User",
+        "description": "Cria um novo usuário",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": ["name", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Endereço e coordenadas não informados ou ambos informados ao mesmo tempo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "You must provide either address or coordinates, but not both or none."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400.1": {
+            "description": "Email já utilizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "E11000 duplicate key error collection"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by id",
+        "description": "Retorna um usuário pelo id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID do usuário",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário obtido com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user by id",
+        "description": "Atualiza um usuário",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID do usuário",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": ["name", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Endereço e coordenadas informados ao mesmo tempo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "You can provide either address or coordinates, but not both."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete user by id",
+        "description": "Deleta um usuário",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID do usuário",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usuário deletado com sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions": {
+      "get": {
+        "tags": ["Regions"],
+        "summary": "Get regions",
+        "description": "Lista todas as regiões",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Regiões obtidas com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Regions"],
+        "summary": "Create a region",
+        "description": "Cria uma nova região",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "user": {
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "coordinates", "user"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Região criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Region" }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro em algum campo enviado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error creating region"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions/{id}": {
+      "get": {
+        "tags": ["Regions"],
+        "summary": "Get a region by id",
+        "description": "Retorna uma região pelo id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID da região",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Região obtida com sucesso",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Region" }
+              }
+            }
+          },
+          "404": {
+            "description": "Região não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Region not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Regions"],
+        "summary": "Update region by id",
+        "description": "Atualiza uma região",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID da região",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "user": {
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "coordinates", "user"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Região atualizada com sucesso",
+            "content": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Region" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Região não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Region not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Regions"],
+        "summary": "Delete a region",
+        "description": "Deleta uma região",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID da região",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Região deletada com sucesso"
+          },
+          "404": {
+            "description": "Região não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Region not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions/containing/point": {
+      "get": {
+        "tags": ["Regions"],
+        "summary": "Get regions by a point",
+        "description": "Retorna as regiões que contém o ponto",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "latitude",
+            "description": "Latitude",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "longitude",
+            "description": "Longitude",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Região obtida com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions/distance": {
+      "get": {
+        "tags": ["Regions"],
+        "summary": "Get regions using a point and a radius",
+        "description": "Retonar regiões que estejam dentro de um raio com centro no ponto informado",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "latitude",
+            "description": "Latitude",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "longitude",
+            "description": "Longitude",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "maxDistance",
+            "description": "Distância em metros",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Regiões obtidas com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/export/users": {
+      "get": {
+        "tags": ["Exports"],
+        "summary": "Export all users",
+        "description": "Exporta todos os usuários para um arquivo csv",
+        "produces": ["text/csv"],
+        "responses": {
+          "200": {
+            "description": "Usuários exportados com sucesso"
+          }
+        }
+      }
+    },
+    "/exports/regions": {
+      "get": {
+        "tags": ["Exports"],
+        "summary": "Export all regions",
+        "description": "Exporta todas as regiões para um arquivo CSV",
+        "produces": ["text/csv"],
+        "responses": {
+          "200": {
+            "description": "Regiões exportadas com sucesso"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6620809cecac6420edd220c6"
+          },
+          "name": {
+            "type": "string",
+            "example": "Bradford Hodkiewicz"
+          },
+          "email": {
+            "type": "string",
+            "example": "Casimera.Green@hotmail.com"
+          },
+          "address": {
+            "type": "string",
+            "example": "R. Erasmo Rodovalho de Alençar, 14 - Vila Centenário, Iguatu - CE, 63503-370, Brazil"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "example": [-6.3691311, -39.3074924]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-18T02:08:28.929Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-18T02:08:28.929Z"
+          }
+        },
+        "required": ["name", "email"]
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "662080b0ecac6420edd220ce"
+          },
+          "name": {
+            "type": "string",
+            "example": "Teste Regiao I"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "example": [-26.9989474, -48.636369]
+          },
+          "user": {
+            "type": "string",
+            "example": "662080a9ecac6420edd220cb"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-18T02:08:28.929Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-18T02:08:28.929Z"
+          }
+        },
+        "required": ["name", "coordinates", "user"]
+      }
+    }
+  }
+}

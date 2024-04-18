@@ -45,7 +45,7 @@ export class UserService implements UserServiceInterface {
   ): Promise<IUser | null> {
     if (userData.coordinates && userData.address) {
       throw new Error(
-        "You must provide either address or coordinates, but not both or none."
+        "You can provide either address or coordinates, but not both."
       );
     }
 
