@@ -35,14 +35,25 @@ export class UserService implements UserServiceInterface {
       }
       userData.address = resolvedAddress;
     }
-    return UserModel.create(userData);
+    const user = await UserModel.create(userData);
+    return user;
   }
 
   async updateUser(
     userId: string,
     userData: Partial<IUser>
   ): Promise<IUser | null> {
-    this.validateUserData(userData);
+    if (userData.coordinates && userData.address) {
+      throw new Error(
+        "You must provide either address or coordinates, but not both or none."
+      );
+    }
+
+    const user = await UserModel.findOne({ _id: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
 
     if (userData.address) {
       const resolvedCoordinates = await geolib.getCoordinatesFromAddress(
@@ -67,7 +78,7 @@ export class UserService implements UserServiceInterface {
       userData.address = resolvedAddress;
     }
 
-    return UserModel.findByIdAndUpdate(userId, userData, { new: true });
+    return await UserModel.findByIdAndUpdate(userId, userData, { new: true });
   }
 
   async getUserById(userId: string): Promise<IUser | null> {
@@ -80,7 +91,7 @@ export class UserService implements UserServiceInterface {
   }
 
   async getUsers(): Promise<IUser[]> {
-    return UserModel.find();
+    return await UserModel.find();
   }
 
   private validateUserData(userData: Partial<IUser>): void {
