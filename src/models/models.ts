@@ -14,9 +14,9 @@ import lib from "../services/libService";
 import ObjectId = mongoose.Types.ObjectId;
 import { Document } from "mongoose";
 
-class Base extends Document<ObjectId> {
-  createdAt: Date;
-  updatedAt: Date;
+class Base extends TimeStamps {
+  @Prop({ required: true, default: () => new ObjectId().toString() })
+  _id: string;
 }
 
 @pre<User>("save", async function (next) {
@@ -36,7 +36,7 @@ export class User extends Base {
   @Prop({ required: true })
   name!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email!: string;
 
   @Prop({ required: true })
@@ -53,7 +53,7 @@ export class User extends Base {
   const region = this as Omit<any, keyof Region> & Region;
 
   if (!region._id) {
-    region._id = new ObjectId();
+    region._id = new ObjectId().toString();
   }
 
   if (region.isNew) {
@@ -66,9 +66,6 @@ export class User extends Base {
 })
 @modelOptions({ schemaOptions: { validateBeforeSave: false } })
 export class Region extends Base {
-  @Prop({ required: true, auto: true })
-  _id: ObjectId;
-
   @Prop({ required: true })
   name!: string;
 
