@@ -10,11 +10,10 @@ docker-compose up --build
 ## Variáveis
 
 ```
-      MONGODB_URI: mongodb://mongo:27017/ozmapdb
-      GOOGLE_MAPS_API_KEY: SUA_CHAVE_AQUI
-      GOOGLE_MAPS_API_URL: https://maps.googleapis.com/maps/api/geocode/json?
-      PORT: 3000
-
+MONGODB_URI: mongodb://mongo:27017/ozmapdb
+GOOGLE_MAPS_API_KEY: SUA_CHAVE_AQUI
+GOOGLE_MAPS_API_URL: https://maps.googleapis.com/maps/api/geocode/json?
+PORT: 3000
 ```
 
 Caso não possua uma chave para testar o projeto, favor entrar em contato.
